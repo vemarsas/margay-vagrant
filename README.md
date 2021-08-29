@@ -1,19 +1,4 @@
-A web interface to manage Linux-based network and virtualization
-appliances.
-
-This is the web interface for the _Margay_ series of devices by Vemar S.A.S.
-
-It's been mainly developed and tested on Debian GNU/Linux.
-
-## Installation
-
-### On real hardware
-
-Please refer to https://github.com/vemarsas/margay/blob/master/README.md.
-
-### Local development environment
-
-You can install Vagrant -- https://www.vagrantup.com/.
+Install Vagrant -- https://www.vagrantup.com/.
 
 Then run
 
@@ -24,44 +9,34 @@ vagrant up
 The above is equivalent to:
 
 ```bash
-vagrant up margay
+vagrant up mgy
 ```
 
-YOu can start a "client" VM, connected "behind" Margay via virtualized internal network:
-
+You can start a "client" VM, connected "behind" Margay via virtualized internal network:
 ```bash
 vagrant up client
 ```
+`eth1` in the client is connected to `eth1` in Margay.
+
+You can also fire up a second Margay "downstream":
+```bash
+vagrant up mgy_downstr
+```
+`eth1` in `mgy_downstr` is connected to `eth2` in `mgy`.
+
 
 The client VM will show the VBox GUI, you will see a graphical login.
 Enter with credentials vagrant:vagrant, then right-click
 and open Web Browser (or Terminal etc.)
 
-The same distinction between margay and client machine holds for
+The same argument `mgy`, `mgy_downstr`, or `client` holds for
 other Vagrant commands: provision, halt, suspend, destroy etc.
 (see documentation on the Vagrant website).
 
-#### Hotspot/RADIUS module
+#### Synced folder
 
-Enable with (from the host):
-
-```
-vagrant provision margay --provision-with radius
-```
-
-#### QEMU/virt module
-
-```
-vagrant provision margay --provision-with virt
-```
-
-#### Wireless Access Point module
-
-You can enable this to test/develop capabilities of editing `hostapd` configs,
-but there's no emulation of wifi networks currently.
-```
-vagrant provision margay --provision-with ap
-```
+We do not use it. Use sshfs or a plugin in your editor/IDE to connect to the machine `/home/onboard`
+and edit / git push etc. from the host.
 
 #### Very optional Vagrant tweaks
 
@@ -89,56 +64,7 @@ and therefore circumvent the captive portal (depending on the configuration).
 
 Margay server will be available at
 
-* http://localhost:4567
-* https://localhost
-  * *or https://localhost:4443 (from the host) if you're using Vagrant*
+* http://localhost:4567  (4568 for `mgy_downstr`)
+* https://localhost:4443 (4444 )
 
 The default credentials are `admin`:`admin`.
-
-## Multiple choices (in the ReST/HTTP sense)
-
-For any web page, you may change `.html` extension into `.json` to
-get machine-readable data.
-
-An `.rb` extension is also available for debugging purposes when in
-Sinatra `development` environment.
-
-### ReSTful JSON API endpoints and documentation
-
-Besides URLs like e.g. `/services/radius/users.json`, a dedicated
-base URL is available at `/api/v1/`.
-
-At the moment, only the RADIUS user/group endpoint is formally
-tested and documented ([here](modules/radius-admin/doc/api/)).
-
-As a convenience, if you are working with e.g. the endpoint
-`/api/v1/services/radius`, you can be redirected to the documentation
-by GET-ting `/api/v1/services/radius/doc`.
-
-## Testing
-
-```bash
-# core only
-bundle exec rspec
-
-# plus specific module
-bundle exec rspec spec modules/radius-admin/spec
-
-# plus all modules
-bundle exec rspec spec modules/*/spec
-```
-
-It's assumed they have been basically configured to function,
-they are real e2e tests connecting to real local db  etc.
-
-## Copying
-
-Except where otherwise stated, this work is
-Copyright 2009-2019
-Guido De Rosa <guido.derosa at vemarsas.it> and
-Antonello Ventre <antonello.ventre at vemarsas.it>.
-
-License: GPLv2
-
-Artworks from various sources are included.
-See `public/*/*` for details and Copyright info.
