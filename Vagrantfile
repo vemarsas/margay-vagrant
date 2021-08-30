@@ -73,7 +73,7 @@ Vagrant.configure("2") do |config|
       auto_config: false, # or will reset what margay-persist has configured on the interface
       virtualbox__intnet: "downstr_vlan_2_access"
 
-    mgy.vm.provision "shell", inline: ENABLE_PASSWD
+    mgy_downstr.vm.provision "shell", inline: ENABLE_PASSWD
 
     mgy_downstr.vm.post_up_message = [
       COMMON_MESSAGE,
