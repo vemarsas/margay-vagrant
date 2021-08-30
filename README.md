@@ -38,6 +38,8 @@ other Vagrant commands: provision, halt, suspend, destroy etc.
 We do not use it. Use sshfs or a plugin in your editor/IDE to connect to the machine `/home/onboard`
 and edit / git push etc. from the host.
 
+PLEASE NOTE: you may need to enable password authentication in `/etc/ssh/sshd_config` in the guest.
+
 #### Very optional Vagrant tweaks
 
 ##### Proxy
