@@ -9,6 +9,10 @@ COMMON_MESSAGE = "To setup Margay:
   sudo -i
   bash -c \"$(wget -O - https://raw.githubusercontent.com/vemarsas/margay/master/setup)\"
 # See also https://github.com/vemarsas/margay/blob/master/README.md"
+ENABLE_PASSWD = <<-END
+  sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+  systemctl restart sshd.service
+END
 
 Vagrant.configure("2") do |config|
   config.vm.define "mgy", primary: true do |mgy|
@@ -34,6 +38,8 @@ Vagrant.configure("2") do |config|
     mgy.vm.network "private_network",
       auto_config: false, # or will reset what margay-persist has configured on the interface
       virtualbox__intnet: "vlan2_access"
+
+    mgy.vm.provision "shell", inline: ENABLE_PASSWD
 
     mgy.vm.post_up_message = [
       COMMON_MESSAGE,
@@ -66,6 +72,8 @@ Vagrant.configure("2") do |config|
     mgy_downstr.vm.network "private_network",
       auto_config: false, # or will reset what margay-persist has configured on the interface
       virtualbox__intnet: "downstr_vlan_2_access"
+
+    mgy.vm.provision "shell", inline: ENABLE_PASSWD
 
     mgy_downstr.vm.post_up_message = [
       COMMON_MESSAGE,
