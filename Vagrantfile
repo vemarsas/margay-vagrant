@@ -4,7 +4,7 @@
 require 'pp'
 
 DEBIAN_BOX = "debian/bullseye64"
-COMMON_MESSAGE = "To setup Margay: 
+COMMON_MESSAGE = "To setup Margay:
   vagrant ssh
   sudo -i
   bash -c \"$(wget -O - https://raw.githubusercontent.com/vemarsas/margay/master/setup)\"
