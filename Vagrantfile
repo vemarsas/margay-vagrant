@@ -4,8 +4,8 @@
 require 'pp'
 
 DEBIAN_BOX = "debian/bullseye64"
-COMMON_MESSAGE = "To setup Margay:
-  vagrant ssh
+COMMON_MESSAGE = "To setup Margay (if not done already):
+  vagrant ssh <mgy OR mgy_downstr>
   sudo -i
   bash -c \"$(wget -O - https://raw.githubusercontent.com/vemarsas/margay/master/setup)\"
 # See also https://github.com/vemarsas/margay/blob/master/README.md"
@@ -43,7 +43,7 @@ Vagrant.configure("2") do |config|
 
     mgy.vm.post_up_message = [
       COMMON_MESSAGE,
-      'After Margay seyup:',
+      'After Margay setup:',
       'SSH: port 2222 @localhost, user: "onboard", password: "onboard"',
       'Margay web: http://localhost:4567 or https://localhost:4443'
     ].join("\n")
@@ -77,7 +77,7 @@ Vagrant.configure("2") do |config|
 
     mgy_downstr.vm.post_up_message = [
       COMMON_MESSAGE,
-      'After Margay seyup:',
+      'After Margay setup:',
       'SSH: port 2223 @localhost, user: "onboard", password: "onboard"',
       'Margay web: http://localhost:4568 or https://localhost:4444'
     ].join("\n")
