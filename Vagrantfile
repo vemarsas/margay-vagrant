@@ -144,6 +144,8 @@ EOFF
 
     systemctl restart networking
 
+    echo "vagrant:vagrant" | chpasswd
+
     EOF
   end
 end
