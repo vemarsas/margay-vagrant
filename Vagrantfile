@@ -27,6 +27,34 @@ def allow_promisc(vmcfg, nicids, allow=:allow_vms)
 end
 
 
+=begin
+                                             TOPOLOGY
+
+                                            default/NAT
+                                                |
+                                              (eth0)
+  --------                                    -----
+ | CLIENT |---default(vlan1?)_access---(eth1)| MGY |(eth3)---vlan2_access
+  --------                                    -----
+                                              (eth2)
+                                                |
+                                            vlan_trunk (vlans 1, 2)
+                                                |
+                                              (eth1)
+                                            -------------
+                       default/NAT---(eth0)| MGY_DOWNSTR |
+                                            -------------
+                                            (eth2) (eth3)
+                                              |       |
+                            downstr_vlan_1_access    downstr_vlan_2_access
+
+  Of course, VLAN IDs 1, 2 are purely conventional/examples: they are not enforced in this Vagrantfile.
+
+  A simpler topology with no VLANs will be just MGY and CLIENT (e.g. to test Raidus/Chilli and no 802.1Q involved).
+  That was indeed the original design.
+=end
+
+
 Vagrant.configure("2") do |config|
   config.vm.define "mgy", primary: true do |mgy|
 
