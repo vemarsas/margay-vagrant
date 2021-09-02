@@ -57,6 +57,7 @@ Vagrant.configure("2") do |config|
       auto_config: false, # or will reset what margay-persist has configured on the interface
       virtualbox__intnet: "vlan2_access"
 
+    # If we ever want bridges to work...
     allow_promisc mgy, [2, 3, 4], :allow_vms
 
     mgy.vm.provision "shell", inline: ENABLE_PASSWD
