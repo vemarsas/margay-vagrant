@@ -14,6 +14,19 @@ ENABLE_PASSWD = <<-END
   systemctl restart sshd.service
 END
 
+
+# Ex. allow_promisc mgy, [2, 3, 4], :allow_vms
+# (NIC ID=1 is generally the default/NAT interface)
+# The third arg may also be :allow_all or :deny
+def allow_promisc(vmcfg, nicids, allow=:allow_vms)
+  vmcfg.vm.provider "virtualbox" do |vb|
+    nicids.each do |i|
+      vb.customize ["modifyvm", :id, "--nicpromisc#{i}", allow.to_s.gsub('_', '-')]
+    end
+  end
+end
+
+
 Vagrant.configure("2") do |config|
   config.vm.define "mgy", primary: true do |mgy|
 
@@ -27,17 +40,24 @@ Vagrant.configure("2") do |config|
     mgy.vm.network "forwarded_port", guest: 4567, host: 4567
     mgy.vm.network "forwarded_port", guest: 443,  host: 4443
 
+    # NIC #1 is the default NAT interface, with forwarded ports above
+
+    # NIC #2
     mgy.vm.network "private_network",  # may also be used as vlan 1 access
       auto_config: false, # or will reset what margay-persist has configured on the interface
       virtualbox__intnet: "default_access"
 
+    # NIC #3
     mgy.vm.network "private_network",
       auto_config: false, # or will reset what margay-persist has configured on the interface
       virtualbox__intnet: "vlan_trunk"
 
+    # NIC #4
     mgy.vm.network "private_network",
       auto_config: false, # or will reset what margay-persist has configured on the interface
       virtualbox__intnet: "vlan2_access"
+
+    allow_promisc mgy, [2, 3, 4], :allow_vms
 
     mgy.vm.provision "shell", inline: ENABLE_PASSWD
 
@@ -61,17 +81,24 @@ Vagrant.configure("2") do |config|
     mgy_downstr.vm.network "forwarded_port",  guest: 4567, host: 4568
     mgy_downstr.vm.network "forwarded_port",  guest: 443,  host: 4444
 
+    # NIC #1 is the default NAT interface, with forwarded ports above
+
+    # NIC #2
     mgy_downstr.vm.network "private_network",
       auto_config: false, # or will reset what margay-persist has configured on the interface
       virtualbox__intnet: "vlan_trunk"
 
+    # NIC #3
     mgy_downstr.vm.network "private_network",
       auto_config: false, # or will reset what margay-persist has configured on the interface
       virtualbox__intnet: "downstr_vlan_1_access"
 
+    # NIC #4
     mgy_downstr.vm.network "private_network",
       auto_config: false, # or will reset what margay-persist has configured on the interface
       virtualbox__intnet: "downstr_vlan_2_access"
+
+    allow_promisc mgy_downstr, [2, 3, 4], :allow_vms
 
     mgy_downstr.vm.provision "shell", inline: ENABLE_PASSWD
 
