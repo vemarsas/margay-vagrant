@@ -16,7 +16,7 @@ You can start a "client" VM, connected "behind" Margay via virtualized internal 
 ```bash
 vagrant up client
 ```
-`eth1` in the client is connected to `eth1` in Margay.
+`eth0` in the client is connected to `eth1` in Margay.
 
 You can also fire up a second Margay "downstream":
 ```bash
