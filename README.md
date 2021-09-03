@@ -24,7 +24,6 @@ vagrant up mgy_downstr
 ```
 `eth1` in `mgy_downstr` is connected to `eth2` in `mgy`.
 
-
 The client VM will show the VBox GUI, you will see a graphical login.
 Enter with credentials vagrant:vagrant, then right-click
 and open Web Browser (or Terminal etc.)
@@ -33,14 +32,22 @@ The same argument `mgy`, `mgy_downstr`, or `client` holds for
 other Vagrant commands: provision, halt, suspend, destroy etc.
 (see documentation on the Vagrant website).
 
-#### Synced folder
+### Margay setup
+
+At this point Margay is not setuo yet.
+
+Please refer to: https://github.com/vemarsas/margay#readme.
+
+It's the same installation procedure you would use on real hardware!
+
+### Synced folder
 
 We do not use it. Use sshfs or a plugin in your editor/IDE to connect to the machine `/home/onboard`
 and edit / git push etc. from the host.
 
-#### Very optional Vagrant tweaks
+### Very optional Vagrant tweaks
 
-##### Proxy
+#### Proxy
 
 If you install the vagrant-proxyconf plugin,
 you also set proxy environment variables if you want to use a proxy
@@ -60,7 +67,7 @@ if, for example, you use polipo with default config
 Beware this may conflict with captive portal in the client, as browsers will then use the proxy
 and therefore circumvent the captive portal (depending on the configuration).
 
-## After installation
+### After installation
 
 Margay server will be available at
 
