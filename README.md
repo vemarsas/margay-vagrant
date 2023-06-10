@@ -37,7 +37,12 @@ other Vagrant commands: provision, halt, suspend, destroy etc.
 
 At this point Margay is not setup yet.
 
-Please refer to: https://github.com/vemarsas/margay#readme.
+```
+vagrant ssh
+sudo -i
+```
+
+Then, please refer to: https://github.com/vemarsas/margay#readme.
 
 It's the same installation procedure you would use on real hardware!
 
