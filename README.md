@@ -12,7 +12,8 @@ The above is equivalent to:
 vagrant up mgy
 ```
 
-You can start a "client" VM, connected "behind" Margay via virtualized internal network:
+You can start a "client" VM, connected "behind" Margay via virtualized internal network
+(this is not another Margay network appliance, but rather a "regular PC"):
 ```bash
 vagrant up client
 ```
@@ -34,7 +35,7 @@ other Vagrant commands: provision, halt, suspend, destroy etc.
 
 ### Margay setup
 
-At this point Margay is not setuo yet.
+At this point Margay is not setup yet.
 
 Please refer to: https://github.com/vemarsas/margay#readme.
 
