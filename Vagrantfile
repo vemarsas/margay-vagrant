@@ -3,7 +3,7 @@
 
 require 'pp'
 
-DEBIAN_BOX = "debian/bullseye64"
+DEBIAN_BOX = "debian/bookworm64"
 COMMON_MESSAGE = "To setup Margay (if not done already):
   vagrant ssh <mgy OR mgy_downstr>
   sudo -i
