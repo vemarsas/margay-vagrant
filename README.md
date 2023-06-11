@@ -37,7 +37,12 @@ other Vagrant commands: provision, halt, suspend, destroy etc.
 
 At this point Margay is not setup yet.
 
-Please refer to: https://github.com/vemarsas/margay#readme.
+```
+vagrant ssh
+sudo -i
+```
+
+Then, please refer to: https://github.com/vemarsas/margay#readme.
 
 It's the same installation procedure you would use on real hardware!
 
@@ -70,9 +75,12 @@ and therefore circumvent the captive portal (depending on the configuration).
 
 ### After installation
 
-Margay server will be available at
+##### Upstream Margay
+* SSH: port 2222 @localhost, user: "onboard", password: "onboard"
+* Margay web: http://localhost:4567 or https://localhost:4443, "admin", "admin"
 
-* http://localhost:4567  (4568 for `mgy_downstr`)
-* https://localhost:4443 (4444 )
+##### Downstream margay
+* SSH: port 2223 @localhost, user: "onboard", password: "onboard"
+* Margay web: http://localhost:4568 or https://localhost:4444, "admin", "admin"
 
-The default credentials are `admin`:`admin`.
+See also `COMMON_MESSAGE` (and *`.vm.post_up_message`) in [Vagrantfile](Vagrantfile).
